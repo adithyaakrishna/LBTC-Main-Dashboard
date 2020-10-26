@@ -22,7 +22,10 @@ import Dot from './components/Dot';
 
 const structure = [
   { id: 0, label: 'Contact Us Form', link: '/app/tables', icon: <HomeIcon /> },
-  { id: 1, label: 'Sign Up Form', link: '/app/tables2', icon: <HomeIcon />},
+  { id: 1, label: "Sign Up Form", link: "/app/tables2", icon: <HomeIcon /> },
+  { id: 2, type: 'divider' },
+  { id: 3, label: "BV Contact Us", link: "/app/tables3", icon: <HomeIcon /> },
+  { id: 4, label: "BV Footer Form", link: "/app/tables4", icon: <HomeIcon /> },
 ];
 
 const SidebarView = ({ classes, theme, toggleSidebar, isSidebarOpened, isPermanent, location }) => {

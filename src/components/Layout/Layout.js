@@ -12,6 +12,8 @@ import Sidebar from "../Sidebar";
 import Tables from "../../pages/tables";
 import { useLayoutState } from "../../context/LayoutContext";
 import Tables2 from "../../pages/tables/Tables-2";
+import Tables3 from "../../pages/tables/Tables-3";
+import Tables4 from "../../pages/tables/Tables-4";
 
 function Layout(props) {
   var classes = useStyles();
@@ -34,6 +36,8 @@ function Layout(props) {
               <Route path="/app/dashboard" component={Tables} />
               <Route path="/app/tables" component={Tables} />
               <Route path="/app/tables2" component={Tables2} />
+              <Route path="/app/tables3" component={Tables3} />
+              <Route path="/app/tables4" component={Tables4} />
               <Route
                 exact
                 path="/app/ui"
