@@ -1,29 +1,36 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {firestore} from '../../Services/firebase'
 import { Grid } from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
 import PageTitle from "../../components/PageTitle";
 
-const datatableData = [
-  ["Joe James", "Example Inc.", "Yonkers", "NY"],
-  ["John Walsh", "Example Inc.", "Hartford", "CT"],
-  ["Bob Herm", "Example Inc.", "Tampa", "FL"],
-  ["James Houston", "Example Inc.", "Dallas", "TX"],
-  ["Prabhakar Linwood", "Example Inc.", "Hartford", "CT"],
-  ["Kaui Ignace", "Example Inc.", "Yonkers", "NY"],
-  ["Esperanza Susanne", "Example Inc.", "Hartford", "CT"],
-  ["Christian Birgitte", "Example Inc.", "Tampa", "FL"],
-  ["Meral Elias", "Example Inc.", "Hartford", "CT"],
-  ["Deep Pau", "Example Inc.", "Yonkers", "NY"],
-  ["Sebastiana Hani", "Example Inc.", "Dallas", "TX"],
-  ["Marciano Oihana", "Example Inc.", "Yonkers", "NY"],
-  ["Brigid Ankur", "Example Inc.", "Dallas", "TX"],
-  ["Anna Siranush", "Example Inc.", "Yonkers", "NY"],
-  ["Avram Sylva", "Example Inc.", "Hartford", "CT"],
-  ["Serafima Babatunde", "Example Inc.", "Tampa", "FL"],
-  ["Gaston Festus", "Example Inc.", "Tampa", "FL"],
-];
-
 export default function Tables2() {
+  const [tableData, setTableData] = useState([])
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchData = async () => {
+      await firestore.collection("/SignUpForm").onSnapshot(async (snapshot) => {
+        if (isMounted) {
+          setTableData([])
+        }
+        snapshot.forEach((snap) => {
+          if (snap.exists) {
+            if (isMounted) {
+              let tempData = snap.data();
+              let finalTemp = [tempData.typeValue, tempData.Name, tempData.phoneNumber, tempData.email, tempData.subject, tempData.message]
+              setTableData(prevState => [...prevState, finalTemp])
+            }
+          }
+        })
+      })
+    }
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    }
+  }, [])
   return (
     <>
       <PageTitle title="Sign Up Form" />
@@ -31,7 +38,7 @@ export default function Tables2() {
         <Grid item xs={12}>
           <MUIDataTable
             title="Users Signed Up"
-            data={datatableData}
+            data={tableData}
             columns={["Type of User", "Name", "Phone Number", "Email", "Subject", "Message"]}
             options={{
               filterType: "checkbox",
