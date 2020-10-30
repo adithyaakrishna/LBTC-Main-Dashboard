@@ -21,7 +21,7 @@ export default function Tables() {
           if(snap.exists){
             if(isMounted){
               let tempData = snap.data();
-              let finalTemp = [tempData.firstName, tempData.lastName, tempData.email, tempData.subject, tempData.message]
+              let finalTemp = [tempData.FirstName, tempData.LastName, tempData.Email, tempData.Subject, tempData.Message]
               setTableData(prevState => [...prevState, finalTemp])
             }
           }
